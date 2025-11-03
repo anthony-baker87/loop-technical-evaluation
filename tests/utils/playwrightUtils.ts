@@ -52,3 +52,17 @@ export function getCardInColumn(column: Locator, cardTitle: string): Locator {
 export function getTagsInCard(card: Locator, tag: string): Locator {
   return card.locator(`//span[text()='${tag}']`);
 }
+
+export function checkConsoleErrors(page: Page): string[] {
+  const errors: string[] = [];
+
+  page.on("console", (msg) => {
+    if (msg.type() === "error") {
+      const text = msg.text();
+      console.log(`BROWSER ERROR: ${text}`);
+      errors.push(text);
+    }
+  });
+
+  return errors;
+}

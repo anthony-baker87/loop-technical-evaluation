@@ -6,6 +6,7 @@ import {
   getColumnByName,
   getCardInColumn,
   getTagsInCard,
+  checkConsoleErrors,
 } from "../utils/playwrightUtils";
 
 /**
@@ -40,6 +41,10 @@ test("Test Case 1", async ({ page }) => {
   //wait for "Feature" and "High Priority" tags to be visible
   await expect(featureTag).toBeVisible();
   await expect(highPriorityTag).toBeVisible();
+
+  //check console for errors
+  const consoleErrors = checkConsoleErrors(page);
+  expect(consoleErrors).toHaveLength(0);
 });
 
 /**
@@ -72,6 +77,10 @@ test("Test Case 2", async ({ page }) => {
 
   //wait for "Bug" tag to be visible
   await expect(bugTag).toBeVisible();
+
+  //check console for errors
+  const consoleErrors = checkConsoleErrors(page);
+  expect(consoleErrors).toHaveLength(0);
 });
 
 /**
@@ -104,6 +113,10 @@ test("Test Case 3", async ({ page }) => {
 
   //wait for "Design" tag to be visible
   await expect(designTag).toBeVisible();
+
+  //check console for errors
+  const consoleErrors = checkConsoleErrors(page);
+  expect(consoleErrors).toHaveLength(0);
 });
 
 /**
@@ -136,6 +149,10 @@ test("Test Case 4", async ({ page }) => {
 
   //wait for "Feature" tag to be visible
   await expect(featureTag).toBeVisible();
+
+  //check console for errors
+  const consoleErrors = checkConsoleErrors(page);
+  expect(consoleErrors).toHaveLength(0);
 });
 
 /**
@@ -170,6 +187,10 @@ test("Test Case 5", async ({ page }) => {
   //wait for "Feature" and "High Priority" tags to be visible
   await expect(featureTag).toBeVisible();
   await expect(highPriorityTag).toBeVisible();
+
+  //check console for errors
+  const consoleErrors = checkConsoleErrors(page);
+  expect(consoleErrors).toHaveLength(0);
 });
 
 /**
@@ -202,4 +223,8 @@ test("Test Case 6", async ({ page }) => {
 
   //wait for "Design" tag to be visible
   await expect(designTag).toBeVisible();
+
+  //check console for errors
+  const consoleErrors = checkConsoleErrors(page);
+  expect(consoleErrors).toHaveLength(0);
 });
