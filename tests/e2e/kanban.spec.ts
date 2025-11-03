@@ -5,6 +5,7 @@ import {
   assertPageLoaded,
   getColumnByName,
   getCardInColumn,
+  getTagsInCard,
 } from "../utils/playwrightUtils";
 
 /**
@@ -15,23 +16,28 @@ import {
  * Confirm tags: "Feature" "High Priority”
  */
 test("Test Case 1", async ({ page }) => {
+  //login to the kanban board page
   await login(page);
+
+  //navigate to the Web Application page
   await navigateToNavItem(page, "Web Application");
+
+  //assert the page loaded
   await assertPageLoaded(page, "web application");
 
   //grab the To Do column contianer
   const todoColumn = getColumnByName(page, "To Do");
   await expect(todoColumn).toBeVisible();
 
-  //find the card title 'Fix navigation bug'
-  const card = getCardInColumn(todoColumn, "Fix navigation bug");
+  //find the card title 'Implement user authentication'
+  const card = getCardInColumn(todoColumn, "Implement user authentication");
   await expect(card).toBeVisible();
 
-  //find tags "Feature" and "High Priority" within the card
-  const featureTag = card.locator("//span[text()='Feature']");
-  const highPriorityTag = card.locator("//span[text()='High Priority']");
+  //find "Feature" and "High Priority" tags within the card
+  const featureTag = getTagsInCard(card, "Feature");
+  const highPriorityTag = getTagsInCard(card, "High Priority");
 
-  //wait for "Feature" and "High Priority" tag to be visible
+  //wait for "Feature" and "High Priority" tags to be visible
   await expect(featureTag).toBeVisible();
   await expect(highPriorityTag).toBeVisible();
 });
@@ -44,28 +50,25 @@ test("Test Case 1", async ({ page }) => {
  * Confirm tags: "Bug"
  */
 test("Test Case 2", async ({ page }) => {
-  //login
+  //login to the kanban board page
   await login(page);
 
-  //navigate to "Web Application"
+  //navigate to the Web Application page
   await navigateToNavItem(page, "Web Application");
 
-  await expect(
-    page.getByRole("heading", { level: 1, name: /web application/i })
-  ).toBeVisible();
+  //assert the page loaded
+  await assertPageLoaded(page, "web application");
 
-  //grab the To Do column container
+  //grab the To Do column contianer
   const todoColumn = getColumnByName(page, "To Do");
   await expect(todoColumn).toBeVisible();
 
   //find the card title 'Fix navigation bug'
-  const card = todoColumn.locator(
-    "//h3[text()='Fix navigation bug']/ancestor::div[contains(@class,'bg-white')]"
-  );
+  const card = getCardInColumn(todoColumn, "Fix navigation bug");
   await expect(card).toBeVisible();
 
-  //find tag "Bug" within the card
-  const bugTag = card.locator("//span[text()='Bug']");
+  //find "Bug" tag within the card
+  const bugTag = getTagsInCard(card, "Bug");
 
   //wait for "Bug" tag to be visible
   await expect(bugTag).toBeVisible();
@@ -79,30 +82,25 @@ test("Test Case 2", async ({ page }) => {
  * Confirm tags: "Design”
  */
 test("Test Case 3", async ({ page }) => {
-  //login
+  //login to the kanban board page
   await login(page);
 
-  //navigate to "Web Application"
+  //navigate to the Web Application page
   await navigateToNavItem(page, "Web Application");
 
-  await expect(
-    page.getByRole("heading", { level: 1, name: /web application/i })
-  ).toBeVisible();
+  //assert the page loaded
+  await assertPageLoaded(page, "web application");
 
-  //grab the In Progress column container
-  const todoColumn = page.locator(
-    "//h2[(text()='In Progress')]/following-sibling::*"
-  );
+  //grab the In Progress column contianer
+  const todoColumn = getColumnByName(page, "In Progress");
   await expect(todoColumn).toBeVisible();
 
   //find the card title 'Design system updates'
-  const card = todoColumn.locator(
-    "//h3[text()='Design system updates']/ancestor::div[contains(@class,'bg-white')]"
-  );
+  const card = getCardInColumn(todoColumn, "Design system updates");
   await expect(card).toBeVisible();
 
-  //find tag "Design" within the card
-  const designTag = card.locator("//span[text()='Design']");
+  //find "Design" tag within the card
+  const designTag = getTagsInCard(card, "Design");
 
   //wait for "Design" tag to be visible
   await expect(designTag).toBeVisible();
@@ -116,32 +114,27 @@ test("Test Case 3", async ({ page }) => {
  * Confirm tags: "Feature"
  */
 test("Test Case 4", async ({ page }) => {
-  //login
+  //login to the kanban board page
   await login(page);
 
-  //navigate to "Mobile Application"
+  //navigate to the Mobile Application page
   await navigateToNavItem(page, "Mobile Application");
 
-  await expect(
-    page.getByRole("heading", { level: 1, name: /mobile application/i })
-  ).toBeVisible();
+  //assert the page loaded
+  await assertPageLoaded(page, "mobile application");
 
-  //grab the To Do column container
-  const todoColumn = page.locator(
-    "//h2[(text()='To Do')]/following-sibling::*"
-  );
+  //grab the To Do column contianer
+  const todoColumn = getColumnByName(page, "To Do");
   await expect(todoColumn).toBeVisible();
 
   //find the card title 'Push notification system'
-  const card = todoColumn.locator(
-    "//h3[text()='Push notification system']/ancestor::div[contains(@class,'bg-white')]"
-  );
+  const card = getCardInColumn(todoColumn, "Push notification system");
   await expect(card).toBeVisible();
 
-  //find tag "Feature" within the card
-  const featureTag = card.locator("//span[text()='Feature']");
+  //find "Feature" tag within the card
+  const featureTag = getTagsInCard(card, "Feature");
 
-  //wait for "Feature" tag  to be visible
+  //wait for "Feature" tag to be visible
   await expect(featureTag).toBeVisible();
 });
 
@@ -153,33 +146,28 @@ test("Test Case 4", async ({ page }) => {
  * Confirm tags: "Feature" & "High Priority”
  */
 test("Test Case 5", async ({ page }) => {
-  //login
+  //login to the kanban board page
   await login(page);
 
-  //navigate to "Mobile Application"
+  //navigate to the Mobile Application page
   await navigateToNavItem(page, "Mobile Application");
 
-  await expect(
-    page.getByRole("heading", { level: 1, name: /mobile application/i })
-  ).toBeVisible();
+  //assert the page loaded
+  await assertPageLoaded(page, "mobile application");
 
-  //grab the To Do column container
-  const todoColumn = page.locator(
-    "//h2[(text()='In Progress')]/following-sibling::*"
-  );
+  //grab the In Progress column contianer
+  const todoColumn = getColumnByName(page, "In Progress");
   await expect(todoColumn).toBeVisible();
 
-  //find the card title 'Push notification system'
-  const card = todoColumn.locator(
-    "//h3[text()='Offline mode']/ancestor::div[contains(@class,'bg-white')]"
-  );
+  //find the card title 'Offline mode'
+  const card = getCardInColumn(todoColumn, "Offline mode");
   await expect(card).toBeVisible();
 
-  //find tag "Feature" and "High Priority" within the card
-  const featureTag = card.locator("//span[text()='Feature']");
-  const highPriorityTag = card.locator("//span[text()='High Priority']");
+  //find "Feature" and "High Priority" tags within the card
+  const featureTag = getTagsInCard(card, "Feature");
+  const highPriorityTag = getTagsInCard(card, "High Priority");
 
-  //wait for "Feature" and "High Priority" tag  to be visible
+  //wait for "Feature" and "High Priority" tags to be visible
   await expect(featureTag).toBeVisible();
   await expect(highPriorityTag).toBeVisible();
 });
@@ -192,29 +180,26 @@ test("Test Case 5", async ({ page }) => {
  * Confirm tags: "Design”
  */
 test("Test Case 6", async ({ page }) => {
-  //login
+  //login to the kanban board page
   await login(page);
 
-  //navigate to "Mobile Application"
+  //navigate to the Mobile Application page
   await navigateToNavItem(page, "Mobile Application");
 
-  await expect(
-    page.getByRole("heading", { level: 1, name: /mobile application/i })
-  ).toBeVisible();
+  //assert the page loaded
+  await assertPageLoaded(page, "mobile application");
 
-  //grab the Done column container
-  const todoColumn = page.locator("//h2[(text()='Done')]/following-sibling::*");
+  //grab the Done column contianer
+  const todoColumn = getColumnByName(page, "Done");
   await expect(todoColumn).toBeVisible();
 
   //find the card title 'App icon design'
-  const card = todoColumn.locator(
-    "//h3[text()='App icon design']/ancestor::div[contains(@class,'bg-white')]"
-  );
+  const card = getCardInColumn(todoColumn, "App icon design");
   await expect(card).toBeVisible();
 
-  //find tag "Design”" within the card
-  const designTag = card.locator("//span[text()='Design']");
+  //find "Design" tag within the card
+  const designTag = getTagsInCard(card, "Design");
 
-  //wait for "Design”" tag  to be visible
+  //wait for "Design" tag to be visible
   await expect(designTag).toBeVisible();
 });

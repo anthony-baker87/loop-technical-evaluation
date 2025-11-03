@@ -48,3 +48,7 @@ export function getCardInColumn(column: Locator, cardTitle: string): Locator {
     `//h3[text()='${cardTitle}']/ancestor::div[contains(@class,'bg-white')]`
   );
 }
+
+export function getTagsInCard(card: Locator, tag: string): Locator {
+  return card.locator(`//span[text()='${tag}']`);
+}
