@@ -8,9 +8,6 @@ export async function login(page: Page) {
   const passwordInput = page.locator("#password");
   const submitBtn = page.locator("//button[@type='submit']");
 
-  // await emailInput.fill(process.env.LOGIN_EMAIL || "");
-  // await passwordInput.fill(process.env.LOGIN_PASSWORD || "");
-
   await fillSecret(emailInput, process.env.LOGIN_EMAIL || "");
   await fillSecret(passwordInput, process.env.LOGIN_PASSWORD || "");
 
