@@ -1,28 +1,18 @@
 import { Locator, Page, expect } from "@playwright/test";
 
-/** ---- ENV HELPERS ---- */
-function required(name: string): string {
-  const v = process.env[name];
-  if (!v) {
-    throw new Error(`Missing required environment variable: ${name}`);
-  }
-  return v;
-}
-
-const LOGIN_EMAIL = () => required("LOGIN_EMAIL");
-const LOGIN_PASSWORD = () => required("LOGIN_PASSWORD");
-
 export async function login(page: Page) {
   // baseURL is loaded via playwright.config.ts
   await page.goto("/");
 
   const emailInput = page.locator("#username");
-
   const passwordInput = page.locator("#password");
   const submitBtn = page.locator("//button[@type='submit']");
 
-  await emailInput.fill(LOGIN_EMAIL());
-  await passwordInput.fill(LOGIN_PASSWORD());
+  // await emailInput.fill(process.env.LOGIN_EMAIL || "");
+  // await passwordInput.fill(process.env.LOGIN_PASSWORD || "");
+
+  await fillSecret(emailInput, process.env.LOGIN_EMAIL || "");
+  await fillSecret(passwordInput, process.env.LOGIN_PASSWORD || "");
 
   await submitBtn.click();
 }
@@ -73,4 +63,23 @@ export function checkConsoleErrors(page: Page): string[] {
   });
 
   return errors;
+}
+
+/**
+ * Sets an input's value without exposing it to the Playwright reporter.
+ * Fires input/change events so frameworks (React, etc.) see the update.
+ */
+export async function fillSecret(locator: Locator, value: string) {
+  await locator.evaluate((el, v) => {
+    const input = el as HTMLInputElement;
+    // Use native setter so React/controlled inputs update correctly
+    const proto = Object.getOwnPropertyDescriptor(
+      window.HTMLInputElement.prototype,
+      "value"
+    );
+    proto?.set?.call(input, v);
+    // Notify listeners
+    input.dispatchEvent(new Event("input", { bubbles: true }));
+    input.dispatchEvent(new Event("change", { bubbles: true }));
+  }, value);
 }
