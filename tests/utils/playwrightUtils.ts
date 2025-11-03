@@ -29,13 +29,14 @@ export async function login(page: Page) {
 
 export async function navigateToNavItem(page: Page, navItem: string) {
   const webAppButton = page.locator(`//nav//button//h2[text()='${navItem}']`);
-  await expect(webAppButton).toBeVisible();
+  await expect(webAppButton, `${navItem} is not visible.`).toBeVisible();
   await webAppButton.click();
 }
 
 export async function assertPageLoaded(page: Page, headerName: string) {
   await expect(
-    page.getByRole("heading", { level: 1, name: new RegExp(headerName, "i") })
+    page.getByRole("heading", { level: 1, name: new RegExp(headerName, "i") }),
+    `Expected page heading "${headerName}" to be visible after navigation`
   ).toBeVisible();
 }
 

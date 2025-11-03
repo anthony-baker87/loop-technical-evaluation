@@ -37,12 +37,12 @@ for (const {
     await assertPageLoaded(page, menuItem.toLowerCase());
 
     //grab the column container
-    const todoColumn = getColumnByName(page, columnTitle);
-    await expect(todoColumn).toBeVisible();
+    const taskColumn = getColumnByName(page, columnTitle);
+    await expect(taskColumn, `${columnTitle} is not visible.`).toBeVisible();
 
     //find the appropriate card title
-    const card = getCardInColumn(todoColumn, cardTitle);
-    await expect(card).toBeVisible();
+    const card = getCardInColumn(taskColumn, cardTitle);
+    await expect(card, `${cardTitle} in the ${taskColumn} column is not visible.`).toBeVisible();
 
     //find tags within the card
     for (const tag of cardTags) {
