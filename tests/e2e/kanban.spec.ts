@@ -5,7 +5,7 @@ import {
   assertPageLoaded,
   getColumnByName,
   getCardInColumn,
-} from "./data/selectors";
+} from "../utils/playwrightUtils";
 
 /**
  * Test Case 1
