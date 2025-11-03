@@ -26,7 +26,7 @@ test("Test Case 1", async ({ page }) => {
   //assert the page loaded
   await assertPageLoaded(page, "web application");
 
-  //grab the To Do column contianer
+  //grab the To Do column container
   const todoColumn = getColumnByName(page, "To Do");
   await expect(todoColumn).toBeVisible();
 
@@ -64,7 +64,7 @@ test("Test Case 2", async ({ page }) => {
   //assert the page loaded
   await assertPageLoaded(page, "web application");
 
-  //grab the To Do column contianer
+  //grab the To Do column container
   const todoColumn = getColumnByName(page, "To Do");
   await expect(todoColumn).toBeVisible();
 
@@ -100,7 +100,7 @@ test("Test Case 3", async ({ page }) => {
   //assert the page loaded
   await assertPageLoaded(page, "web application");
 
-  //grab the In Progress column contianer
+  //grab the In Progress column container
   const todoColumn = getColumnByName(page, "In Progress");
   await expect(todoColumn).toBeVisible();
 
@@ -136,7 +136,7 @@ test("Test Case 4", async ({ page }) => {
   //assert the page loaded
   await assertPageLoaded(page, "mobile application");
 
-  //grab the To Do column contianer
+  //grab the To Do column container
   const todoColumn = getColumnByName(page, "To Do");
   await expect(todoColumn).toBeVisible();
 
@@ -172,7 +172,7 @@ test("Test Case 5", async ({ page }) => {
   //assert the page loaded
   await assertPageLoaded(page, "mobile application");
 
-  //grab the In Progress column contianer
+  //grab the In Progress column container
   const todoColumn = getColumnByName(page, "In Progress");
   await expect(todoColumn).toBeVisible();
 
@@ -210,7 +210,7 @@ test("Test Case 6", async ({ page }) => {
   //assert the page loaded
   await assertPageLoaded(page, "mobile application");
 
-  //grab the Done column contianer
+  //grab the Done column container
   const todoColumn = getColumnByName(page, "Done");
   await expect(todoColumn).toBeVisible();
 
