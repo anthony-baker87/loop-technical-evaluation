@@ -42,7 +42,10 @@ for (const {
 
     //find the appropriate card title
     const card = getCardInColumn(taskColumn, cardTitle);
-    await expect(card, `${cardTitle} in the ${taskColumn} column is not visible.`).toBeVisible();
+    await expect(
+      card,
+      `${cardTitle} in the ${taskColumn} column is not visible.`
+    ).toBeVisible();
 
     //find tags within the card
     for (const tag of cardTags) {

@@ -57,11 +57,18 @@ export function getTagsInCard(card: Locator, tag: string): Locator {
 export function checkConsoleErrors(page: Page): string[] {
   const errors: string[] = [];
 
+  // Listen for console errors
   page.on("console", (msg) => {
     if (msg.type() === "error") {
       const text = msg.text();
+      const location = msg.location();
       console.log(`BROWSER ERROR: ${text}`);
-      errors.push(text);
+      console.log(`LOCATION: ${location.url}`);
+      errors.push(
+        `${text}${
+          location.url ? ` @ ${location.url}:${location.lineNumber}` : ""
+        }`
+      );
     }
   });
 
