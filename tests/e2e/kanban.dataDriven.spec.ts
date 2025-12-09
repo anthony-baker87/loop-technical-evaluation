@@ -25,7 +25,7 @@ for (const {
      * Commenting this out for now as it catches a console error (failed to load resource; 404)
      * and causes the test to fail.
      */
-    // const consoleErrors = checkConsoleErrors(page);
+    const consoleErrors = checkConsoleErrors(page);
 
     //login to the kanban board page
     await login(page);
@@ -38,13 +38,13 @@ for (const {
 
     //grab the column container
     const taskColumn = getColumnByName(page, columnTitle);
-    await expect(taskColumn, `${columnTitle} is not visible.`).toBeVisible();
+    await expect(taskColumn, `"${columnTitle}" is visible.`).toBeVisible();
 
     //find the appropriate card title
     const card = getCardInColumn(taskColumn, cardTitle);
     await expect(
       card,
-      `${cardTitle} in the ${taskColumn} column is not visible.`
+      `"${cardTitle}" in the "${taskColumn}" column is visible.`
     ).toBeVisible();
 
     //find tags within the card
@@ -53,11 +53,11 @@ for (const {
       //wait for the tags to be visible
       await expect(
         tagLoc,
-        `Missing expected tag "${tag}" on card "${cardTitle}"`
+        `Tag "${tag}" on card "${cardTitle}" to be visible.`
       ).toBeVisible();
     }
 
     //assert no console errors
-    // expect(consoleErrors).toHaveLength(0);
+    expect(consoleErrors, "There are no console errors.").toHaveLength(0);
   });
 }

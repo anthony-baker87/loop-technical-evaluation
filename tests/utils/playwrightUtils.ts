@@ -8,6 +8,9 @@ export async function login(page: Page) {
   const passwordInput = page.locator("#password");
   const submitBtn = page.locator("//button[@type='submit']");
 
+  // await page.fill("#username", process.env.LOGIN_EMAIL!);
+  // await page.fill("#password", process.env.LOGIN_PASSWORD!);
+
   await fillSecret(emailInput, process.env.LOGIN_EMAIL || "");
   await fillSecret(passwordInput, process.env.LOGIN_PASSWORD || "");
 
@@ -16,7 +19,7 @@ export async function login(page: Page) {
 
 export async function navigateToNavItem(page: Page, navItem: string) {
   const webAppButton = page.locator(`//nav//button//h2[text()='${navItem}']`);
-  await expect(webAppButton, `${navItem} is not visible.`).toBeVisible();
+  await expect(webAppButton, `${navItem} is visible.`).toBeVisible();
   await webAppButton.click();
 }
 
